@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BusinessLogicLayer.ArticleBLL>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticleText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArticleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArticleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArticleText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.ArticleID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArticleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID })
+        </td>
+    </tr>
+}
+
+</table>

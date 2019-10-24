@@ -1,0 +1,74 @@
+﻿@model BusinessLogicLayer.ArticleBLL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ArticleBLL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticleText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.ArticleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

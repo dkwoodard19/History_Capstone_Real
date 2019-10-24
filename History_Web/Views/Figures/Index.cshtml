@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BusinessLogicLayer.FigureBLL>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureDOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureDOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CivID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CivName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureDOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureDOD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CivID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CivName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.FigureID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.FigureID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.FigureID })
+        </td>
+    </tr>
+}
+
+</table>

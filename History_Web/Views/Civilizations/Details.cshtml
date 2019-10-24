@@ -1,0 +1,50 @@
+﻿@model BusinessLogicLayer.CivilizationBLL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CivilizationBLL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CivID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivEnd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CivID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

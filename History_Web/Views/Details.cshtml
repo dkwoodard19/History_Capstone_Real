@@ -1,0 +1,66 @@
+﻿@model BusinessLogicLayer.FigureBLL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FigureBLL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FigureID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FigureID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FigureName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FigureName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FigureDOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FigureDOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FigureDOD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FigureDOD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
