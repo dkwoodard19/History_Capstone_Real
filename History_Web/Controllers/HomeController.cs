@@ -45,7 +45,7 @@ namespace History_Web.Controllers
             Lm.UserName = "username";
             Lm.Password = "password"; 
             return View(Lm);
-        }
+        } 
 
         [HttpPost]
         public ActionResult Login(LoginModel login)
