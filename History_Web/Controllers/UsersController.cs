@@ -46,13 +46,24 @@ namespace History_Web.Controllers
         public ActionResult Create()
         {
             {
-                UserBLL newUser = new UserBLL();
+                ContextBLL dtr = new ContextBLL();
+                List<SelectListItem> items = new List<SelectListItem>();
+                ViewBag.ListItems = items;
+                UserBLL newUser = new UserBLL();                
                 newUser.UserID = 0;
                 newUser.UserName = null;
                 newUser.Email = null;
                 newUser.Hash = null;
                 newUser.Salt = null;
                 newUser.RoleID = 0;
+                List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
+                foreach (RoleBLL role in roles)
+                {
+                    SelectListItem item = new SelectListItem();
+                    item.Text = role.RoleName;
+                    item.Value = role.RoleID.ToString();
+                    items.Add(item);
+                }
                 return View(newUser);
             }
         }
@@ -83,16 +94,26 @@ namespace History_Web.Controllers
         public ActionResult Edit(int id)
         {
             UserBLL user;
+            List<SelectListItem> items = new List<SelectListItem>();
+            ViewBag.ListItems = items;
             using (ContextBLL dtr = new ContextBLL())
+            {
+                user = dtr.UserFindByID(id);
+                List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
+                foreach (RoleBLL role in roles)
                 {
-                    user = dtr.UserFindByID(id);
+                    SelectListItem item = new SelectListItem();
+                    item.Text = role.RoleName;
+                    item.Value = role.RoleID.ToString();
+                    items.Add(item);
                 }
+            }
             return View(user);
         }
 
         // POST: Users/Edit/5
         [HttpPost]
-        public ActionResult Edit(BusinessLogicLayer.UserBLL userUpdate)
+        public ActionResult Edit(UserBLL userUpdate)
         {
             try
             {

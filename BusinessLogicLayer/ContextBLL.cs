@@ -231,14 +231,14 @@ namespace BusinessLogicLayer
             return proposedReturnValue;
         }
 
-        public void FigureUpdateJust(FigureBLL figureUpdate)
+        public void FiguresUpdateJust(FigureBLL figureUpdate)
         {
-            _context.FigureUpdateJust(figureUpdate.FigureID, figureUpdate.FigureName, figureUpdate.FigureDOB, figureUpdate.FigureDOD, figureUpdate.CivID);
+            _context.FiguresUpdateJust(figureUpdate.FigureID, figureUpdate.FigureName, figureUpdate.FigureDOB, figureUpdate.FigureDOD, figureUpdate.CivID);
         }
 
-        public void FigureUpdateJust(int FigureID, string FigureName, DateTime FigureDOB, DateTime FigureDOD, int CivID)
+        public void FiguresUpdateJust(int FigureID, string FigureName, DateTime FigureDOB, DateTime FigureDOD, int CivID)
         {
-            _context.FigureUpdateJust(FigureID, FigureName, FigureDOB, FigureDOD, CivID);
+            _context.FiguresUpdateJust(FigureID, FigureName, FigureDOB, FigureDOD, CivID);
         }
 
         public void FigureDelete(int FigureID)

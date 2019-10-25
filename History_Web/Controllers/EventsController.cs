@@ -45,10 +45,33 @@ namespace History_Web.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+            List<SelectListItem> figureitems = new List<SelectListItem>();
+            List<SelectListItem> civitems = new List<SelectListItem>();
+            ViewBag.FigureItems = figureitems;
+            ViewBag.CivilizationItems = civitems;
+            using (ContextBLL dtr = new ContextBLL())
             {
                 EventBLL newEvent = new EventBLL();
                 newEvent.EventDate = DateTime.Now.Date;
-                return View(newEvent);
+                newEvent.FigureID = 0;
+                newEvent.CivID = 0;
+                List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
+                foreach (FigureBLL figure in figures)
+                {
+                    SelectListItem figureitem = new SelectListItem();
+                    figureitem.Text = figure.FigureName;
+                    figureitem.Value = figure.FigureID.ToString();
+                    figureitems.Add(figureitem);
+                }
+                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                foreach (CivilizationBLL civ in civs)
+                {
+                    SelectListItem civitem = new SelectListItem();
+                    civitem.Text = civ.CivName;
+                    civitem.Value = civ.CivID.ToString();
+                    civitems.Add(civitem);
+                }
+                    return View(newEvent);
             }
         }
 
@@ -77,10 +100,31 @@ namespace History_Web.Controllers
         // GET: Events/Edit/5
         public ActionResult Edit(int id)
         {
+
             EventBLL @event;
+            List<SelectListItem> figureitems = new List<SelectListItem>();
+            List<SelectListItem> civitems = new List<SelectListItem>();
+            ViewBag.FigureItems = figureitems;
+            ViewBag.CivilizationItems = civitems;
             using (ContextBLL dtr = new ContextBLL())
             {
                 @event = dtr.EventFindByID(id);
+                List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
+                foreach (FigureBLL figure in figures)
+                {
+                    SelectListItem figureitem = new SelectListItem();
+                    figureitem.Text = figure.FigureName;
+                    figureitem.Value = figure.FigureID.ToString();
+                    figureitems.Add(figureitem);
+                }
+                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                foreach (CivilizationBLL civ in civs)
+                {
+                    SelectListItem civitem = new SelectListItem();
+                    civitem.Text = civ.CivName;
+                    civitem.Value = civ.CivID.ToString();
+                    civitems.Add(civitem);
+                }
             }
             return View(@event);
         }

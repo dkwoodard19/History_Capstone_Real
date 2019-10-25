@@ -27,7 +27,7 @@ namespace History_Web
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password Agian")]
+        [Display(Name = "Password Again")]
         public string PasswordAgain { get; set; }
         public string ReturnURL { get; set; }
     }

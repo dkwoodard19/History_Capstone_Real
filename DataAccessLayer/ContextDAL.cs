@@ -447,10 +447,10 @@ namespace DataAccessLayer
             return proposedReturnValue;
         }
 
-        public void FigureUpdateJust(int FigureID, string FigureName, DateTime FigureDOB, DateTime FigureDOD, int CivID)
+        public void FiguresUpdateJust(int FigureID, string FigureName, DateTime FigureDOB, DateTime FigureDOD, int CivID)
         {
             EnsureConnected();
-            using (SqlCommand command = new SqlCommand("FigureUpdateJust", _con))
+            using (SqlCommand command = new SqlCommand("FiguresUpdateJust", _con))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@FigureID", FigureID);
@@ -912,7 +912,7 @@ namespace DataAccessLayer
         public void ArticlesUpdateJust(int ArticleID, string ArticleName, string ArticleText, int EventID, int UserID)
         {
             EnsureConnected();
-            using (SqlCommand command = new SqlCommand("ArticleUpdateJust", _con))
+            using (SqlCommand command = new SqlCommand("ArticlesUpdateJust", _con))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@ArticleID", ArticleID);

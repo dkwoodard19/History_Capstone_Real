@@ -122,12 +122,12 @@ namespace History_Web.Controllers
                 user.UserName = register.UserName;
                 user.Salt = System.Web.Helpers.Crypto.GenerateSalt(Constants.SaltSize);
                 user.Hash = System.Web.Helpers.Crypto.HashPassword(register.Password + user.Salt);
-                user.RoleName = Constants.DefaultRoleName;
+                user.RoleID = Constants.DefaultRoleID;
 
                 dtr.UserCreate(user);
                 Session["AUTHUserName"] = user.UserName;
                 Session["AUTHEmail"] = user.Email;
-                Session["AUTHRoles"] = user.RoleName;
+                Session["AUTHRoles"] = user.RoleID;
                 Session["AUTHTYPE"] = "HASHED";
                 return RedirectToAction("Index");
             }

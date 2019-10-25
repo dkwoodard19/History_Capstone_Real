@@ -46,9 +46,20 @@ namespace History_Web.Controllers
         public ActionResult Create()
         {
             {
+                ContextBLL dtr = new ContextBLL();
+                List<SelectListItem> items = new List<SelectListItem>();
+                ViewBag.ListItems = items;
                 FigureBLL newFigure = new FigureBLL();
                 newFigure.FigureDOB = DateTime.Now.Date;
                 newFigure.FigureDOD = DateTime.Now.Date;
+                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                foreach (CivilizationBLL civ in civs)
+                {
+                    SelectListItem item = new SelectListItem();
+                    item.Text = civ.CivName;
+                    item.Value = civ.CivID.ToString();
+                    items.Add(item);
+                }
                 return View(newFigure);
             }
         }
@@ -79,9 +90,19 @@ namespace History_Web.Controllers
         public ActionResult Edit(int id)
         {
             FigureBLL figure;
+            List<SelectListItem> items = new List<SelectListItem>();
+            ViewBag.ListItems = items;
             using (ContextBLL dtr = new ContextBLL())
             {
                 figure = dtr.FigureFindByID(id);
+                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                foreach (CivilizationBLL civ in civs)
+                {
+                    SelectListItem item = new SelectListItem();
+                    item.Text = civ.CivName;
+                    item.Value = civ.CivID.ToString();
+                    items.Add(item);
+                }
             }
             return View(figure);
         }
@@ -98,7 +119,7 @@ namespace History_Web.Controllers
                 }
                 using (ContextBLL dtr = new ContextBLL())
                 {
-                    dtr.FigureUpdateJust(figureUpdate);
+                    dtr.FiguresUpdateJust(figureUpdate);
                 }
                 return RedirectToAction("Index");
             }
