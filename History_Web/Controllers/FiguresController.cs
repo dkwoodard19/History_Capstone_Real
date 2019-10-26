@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLogicLayer;
+using Logger_Project;
 
 namespace History_Web.Controllers
 {
@@ -37,6 +38,7 @@ namespace History_Web.Controllers
             }
             catch(Exception ex)
             {
+                Logger.Log(ex);
                 return View("Error", ex);
             }
             return View(figure);
@@ -82,6 +84,7 @@ namespace History_Web.Controllers
             }
             catch (Exception Ex)
             {
+                Logger.Log(Ex);
                 return View("Error", Ex);
             }
         }
@@ -125,6 +128,7 @@ namespace History_Web.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 return View("Error", ex);
             }
         }
@@ -146,6 +150,7 @@ namespace History_Web.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 return View("Error", ex);
             }
             return View(deleteFigure);

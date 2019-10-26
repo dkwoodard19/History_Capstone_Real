@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLogicLayer;
+using Logger_Project;
 
 namespace History_Web.Controllers
 {
@@ -71,8 +72,9 @@ namespace History_Web.Controllers
                         validuser = System.Web.Helpers.Crypto.VerifyHashedPassword(actual, potential);
                         validationType = $"HASHED:({user.UserID})";
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Logger.Log(ex);
                         validuser = false;
                     }
                 }
