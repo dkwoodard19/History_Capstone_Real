@@ -57,5 +57,11 @@
     <Compile Include="UserDAL.cs" />
     <Compile Include="UserMapper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger_Project.csproj">
+      <Project>{8B54106C-1C78-4FC0-BDFC-64469739BF3F}</Project>
+      <Name>Logger_Project</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

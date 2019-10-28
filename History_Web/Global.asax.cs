@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Logger_Project;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -33,6 +35,14 @@ namespace History_Web
             string[] roles = Sessroles.Split(',');
             GenericPrincipal p = new GenericPrincipal(i, roles);
             HttpContext.Current.User = p;
+        }
+
+        protected void Application_Error(object sender, EventArgs logs)
+        {
+            var ex = Server.GetLastError();
+            if (ex is ThreadAbortException)
+                return;
+            Logger.Log(ex);
         }
     }
 }
