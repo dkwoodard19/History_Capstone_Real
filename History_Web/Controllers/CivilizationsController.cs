@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Civilizations
         public ActionResult Index()
         {
-            List<CivilizationBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.CivilizationsGetAll(0, 100);
+                List<CivilizationBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.CivilizationsGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Civilizations/Details/5
@@ -47,11 +55,19 @@ namespace History_Web.Controllers
         // GET: Civilizations/Create
         public ActionResult Create()
         {
+            try
             {
+
                 CivilizationBLL newCiv = new CivilizationBLL();
                 newCiv.CivStart = DateTime.Now.Date;
                 newCiv.CivEnd = DateTime.Now.Date;
                 return View(newCiv);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
@@ -81,12 +97,20 @@ namespace History_Web.Controllers
         // GET: Civilizations/Edit/5
         public ActionResult Edit(int id)
         {
-            CivilizationBLL civ;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                civ = dtr.CivilizationFindByID(id);
+                CivilizationBLL civ;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    civ = dtr.CivilizationFindByID(id);
+                }
+                return View(civ);
             }
-            return View(civ);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Civilizations/Edit/5
@@ -139,11 +163,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, CivilizationBLL civDelete)
         {
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                dtr.CivilizationDelete(id);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    dtr.CivilizationDelete(id);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }

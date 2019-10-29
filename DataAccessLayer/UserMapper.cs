@@ -35,7 +35,7 @@ namespace DataAccessLayer
             Assert(6 == OffsetToRoleName, $"RoleName is {OffsetToRoleName} instead of 6 as expected");
         }
 
-        public UserDAL ToUser(SqlDataReader reader)
+        public UserDAL ToUser(SqlDataReader reader)     // loading from database
         {
             UserDAL proposedReturnValue = new UserDAL();
             proposedReturnValue.UserID = reader.GetInt32(OffsetToUserID);

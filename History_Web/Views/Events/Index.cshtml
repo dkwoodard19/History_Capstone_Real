@@ -11,24 +11,24 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.EventID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EventName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EventDate)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.FigureID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FigureName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CivID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CivName)
         </th>
@@ -38,24 +38,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.EventID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.EventID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.EventName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EventDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FigureID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.FigureID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.FigureName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CivID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.CivID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.CivName)
         </td>
         <td>

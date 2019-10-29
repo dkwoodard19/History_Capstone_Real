@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            List<RoleBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.RolesGetAll(0, 100);
+                List<RoleBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.RolesGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Roles/Details/5
@@ -47,9 +55,17 @@ namespace History_Web.Controllers
         // GET: Roles/Create
         public ActionResult Create()
         {
-            RoleBLL newRole = new RoleBLL();
-            newRole.RoleID = 0;
-            return View(newRole);
+            try
+            {
+                RoleBLL newRole = new RoleBLL();
+                newRole.RoleID = 0;
+                return View(newRole);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Roles/Create
@@ -78,14 +94,22 @@ namespace History_Web.Controllers
         // GET: Roles/Edit/5
         public ActionResult Edit(int id)
         {
-            RoleBLL role;
-
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                role = dtr.RoleFindByID(id);
-            }
+                RoleBLL role;
 
-            return View(role);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    role = dtr.RoleFindByID(id);
+                }
+
+                return View(role);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Roles/Edit/5
@@ -139,13 +163,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, RoleBLL roledelete)
         {
+            try
+            {
                 using (ContextBLL dtr = new ContextBLL())
                 {
                     dtr.RoleDelete(id);
                 }
                 return RedirectToAction("Index");
-            
-
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }

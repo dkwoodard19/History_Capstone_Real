@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            List<UserBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.UsersGetAll(0, 100);
+                List<UserBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.UsersGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Users/Details/5
@@ -48,25 +56,33 @@ namespace History_Web.Controllers
         public ActionResult Create()
         {
             {
-                ContextBLL dtr = new ContextBLL();
-                List<SelectListItem> items = new List<SelectListItem>();
-                ViewBag.ListItems = items;
-                UserBLL newUser = new UserBLL();                
-                newUser.UserID = 0;
-                newUser.UserName = null;
-                newUser.Email = null;
-                newUser.Hash = null;
-                newUser.Salt = null;
-                newUser.RoleID = 0;
-                List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
-                foreach (RoleBLL role in roles)
+                try
                 {
-                    SelectListItem item = new SelectListItem();
-                    item.Text = role.RoleName;
-                    item.Value = role.RoleID.ToString();
-                    items.Add(item);
+                    ContextBLL dtr = new ContextBLL();
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    ViewBag.ListItems = items;
+                    UserBLL newUser = new UserBLL();
+                    newUser.UserID = 0;
+                    newUser.UserName = null;
+                    newUser.Email = null;
+                    newUser.Hash = null;
+                    newUser.Salt = null;
+                    newUser.RoleID = 0;
+                    List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
+                    foreach (RoleBLL role in roles)
+                    {
+                        SelectListItem item = new SelectListItem();
+                        item.Text = role.RoleName;
+                        item.Value = role.RoleID.ToString();
+                        items.Add(item);
+                    }
+                    return View(newUser);
                 }
-                return View(newUser);
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    return View("Error", ex);
+                }
             }
         }
 
@@ -96,22 +112,30 @@ namespace History_Web.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int id)
         {
-            UserBLL user;
-            List<SelectListItem> items = new List<SelectListItem>();
-            ViewBag.ListItems = items;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                user = dtr.UserFindByID(id);
-                List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
-                foreach (RoleBLL role in roles)
+                UserBLL user;
+                List<SelectListItem> items = new List<SelectListItem>();
+                ViewBag.ListItems = items;
+                using (ContextBLL dtr = new ContextBLL())
                 {
-                    SelectListItem item = new SelectListItem();
-                    item.Text = role.RoleName;
-                    item.Value = role.RoleID.ToString();
-                    items.Add(item);
+                    user = dtr.UserFindByID(id);
+                    List<RoleBLL> roles = dtr.RolesGetAll(0, 100);
+                    foreach (RoleBLL role in roles)
+                    {
+                        SelectListItem item = new SelectListItem();
+                        item.Text = role.RoleName;
+                        item.Value = role.RoleID.ToString();
+                        items.Add(item);
+                    }
                 }
+                return View(user);
             }
-            return View(user);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Users/Edit/5
@@ -164,11 +188,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, UserBLL userdelete)
         {
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                dtr.UserDelete(id);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    dtr.UserDelete(id);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }

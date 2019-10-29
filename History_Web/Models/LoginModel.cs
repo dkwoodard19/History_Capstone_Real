@@ -18,7 +18,7 @@ namespace History_Web
         public string Password { get; set; }
         public string message { get; set; }
         public string ReturnURL { get; set; }
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get; set; }
+        //[Display(Name = "Remember Me")]
+        //public bool RememberMe { get; set; }
     }
 }

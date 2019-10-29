@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Events
         public ActionResult Index()
         {
-            List<EventBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.EventsGetAll(0, 100);
+                List<EventBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.EventsGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Events/Details/5
@@ -47,33 +55,41 @@ namespace History_Web.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
-            List<SelectListItem> figureitems = new List<SelectListItem>();
-            List<SelectListItem> civitems = new List<SelectListItem>();
-            ViewBag.FigureItems = figureitems;
-            ViewBag.CivilizationItems = civitems;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                EventBLL newEvent = new EventBLL();
-                newEvent.EventDate = DateTime.Now.Date;
-                newEvent.FigureID = 0;
-                newEvent.CivID = 0;
-                List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
-                foreach (FigureBLL figure in figures)
+                List<SelectListItem> figureitems = new List<SelectListItem>();
+                List<SelectListItem> civitems = new List<SelectListItem>();
+                ViewBag.FigureItems = figureitems;
+                ViewBag.CivilizationItems = civitems;
+                using (ContextBLL dtr = new ContextBLL())
                 {
-                    SelectListItem figureitem = new SelectListItem();
-                    figureitem.Text = figure.FigureName;
-                    figureitem.Value = figure.FigureID.ToString();
-                    figureitems.Add(figureitem);
-                }
-                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
-                foreach (CivilizationBLL civ in civs)
-                {
-                    SelectListItem civitem = new SelectListItem();
-                    civitem.Text = civ.CivName;
-                    civitem.Value = civ.CivID.ToString();
-                    civitems.Add(civitem);
-                }
+                    EventBLL newEvent = new EventBLL();
+                    newEvent.EventDate = DateTime.Now.Date;
+                    newEvent.FigureID = 0;
+                    newEvent.CivID = 0;
+                    List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
+                    foreach (FigureBLL figure in figures)
+                    {
+                        SelectListItem figureitem = new SelectListItem();
+                        figureitem.Text = figure.FigureName;
+                        figureitem.Value = figure.FigureID.ToString();
+                        figureitems.Add(figureitem);
+                    }
+                    List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                    foreach (CivilizationBLL civ in civs)
+                    {
+                        SelectListItem civitem = new SelectListItem();
+                        civitem.Text = civ.CivName;
+                        civitem.Value = civ.CivID.ToString();
+                        civitems.Add(civitem);
+                    }
                     return View(newEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
@@ -103,33 +119,40 @@ namespace History_Web.Controllers
         // GET: Events/Edit/5
         public ActionResult Edit(int id)
         {
-
-            EventBLL @event;
-            List<SelectListItem> figureitems = new List<SelectListItem>();
-            List<SelectListItem> civitems = new List<SelectListItem>();
-            ViewBag.FigureItems = figureitems;
-            ViewBag.CivilizationItems = civitems;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                @event = dtr.EventFindByID(id);
-                List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
-                foreach (FigureBLL figure in figures)
+                EventBLL @event;
+                List<SelectListItem> figureitems = new List<SelectListItem>();
+                List<SelectListItem> civitems = new List<SelectListItem>();
+                ViewBag.FigureItems = figureitems;
+                ViewBag.CivilizationItems = civitems;
+                using (ContextBLL dtr = new ContextBLL())
                 {
-                    SelectListItem figureitem = new SelectListItem();
-                    figureitem.Text = figure.FigureName;
-                    figureitem.Value = figure.FigureID.ToString();
-                    figureitems.Add(figureitem);
+                    @event = dtr.EventFindByID(id);
+                    List<FigureBLL> figures = dtr.FiguresGetAll(0, 100);
+                    foreach (FigureBLL figure in figures)
+                    {
+                        SelectListItem figureitem = new SelectListItem();
+                        figureitem.Text = figure.FigureName;
+                        figureitem.Value = figure.FigureID.ToString();
+                        figureitems.Add(figureitem);
+                    }
+                    List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                    foreach (CivilizationBLL civ in civs)
+                    {
+                        SelectListItem civitem = new SelectListItem();
+                        civitem.Text = civ.CivName;
+                        civitem.Value = civ.CivID.ToString();
+                        civitems.Add(civitem);
+                    }
                 }
-                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
-                foreach (CivilizationBLL civ in civs)
-                {
-                    SelectListItem civitem = new SelectListItem();
-                    civitem.Text = civ.CivName;
-                    civitem.Value = civ.CivID.ToString();
-                    civitems.Add(civitem);
-                }
+                return View(@event);
             }
-            return View(@event);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Events/Edit/5
@@ -182,11 +205,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, EventBLL eventDelete)
         {
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                dtr.EventDelete(id);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    dtr.EventDelete(id);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }

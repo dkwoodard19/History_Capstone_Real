@@ -20,7 +20,7 @@ namespace History_Web
         public const int MaxPasswordLength = 18;
 
         public const int SaltSize = 25;
-        public const string PasswordRequirementsMessage = "The Password must contain at Least One Capital letter, One Lowercase letter and One Number.";
+        public const string PasswordRequirementsMessage = "The Password must contain at Least One Capital letter, One Lowercase letter, One Number and One Special Character.";
         public const string PasswordRequirements = @"^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()+=:;.,\-])(?=.*[0-9])).+$";
 
         public const int MinUserNameLength = 5;

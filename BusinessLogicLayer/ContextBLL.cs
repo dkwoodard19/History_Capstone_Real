@@ -272,6 +272,18 @@ namespace BusinessLogicLayer
             return proposedReturnValue;
         }
 
+        public List<EventBLL> EventsGetRelatedToName(int Skip, int Take, string Name)
+        {
+            List<EventBLL> proposedReturnValue = new List<EventBLL>();
+            List<EventDAL> items = _context.EventsGetRelatedToName(Skip, Take, Name);
+            foreach (EventDAL item in items)
+            {
+                EventBLL correctedItem = new EventBLL(item);
+                proposedReturnValue.Add(correctedItem);
+            }
+            return proposedReturnValue;
+        }
+
         public List<EventBLL> EventsGetRelatedToFigureID(int Skip, int Take, int FigureID)
         {
             List<EventBLL> proposedReturnValue = new List<EventBLL>();
@@ -419,6 +431,18 @@ namespace BusinessLogicLayer
         {
             List<ArticleBLL> proposedReturnValue = new List<ArticleBLL>();
             List<ArticleDAL> items = _context.ArticlesGetRelatedToEventID(Skip, Take, EventID);
+            foreach (ArticleDAL item in items)
+            {
+                ArticleBLL correctedItem = new ArticleBLL(item);
+                proposedReturnValue.Add(correctedItem);
+            }
+            return proposedReturnValue;
+        }
+
+        public List<ArticleBLL> ArticlesGetRelatedToEventName(int Skip, int Take, string EventName)
+        {
+            List<ArticleBLL> proposedReturnValue = new List<ArticleBLL>();
+            List<ArticleDAL> items = _context.ArticlesGetRelatedToEventName(Skip, Take, EventName);
             foreach (ArticleDAL item in items)
             {
                 ArticleBLL correctedItem = new ArticleBLL(item);

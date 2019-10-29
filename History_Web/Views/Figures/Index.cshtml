@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BusinessLogicLayer.FigureBLL>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Figures";
 }
 
 <h2>Index</h2>
@@ -11,9 +11,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.FigureID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FigureName)
         </th>
@@ -23,9 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FigureDOD)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CivID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CivName)
         </th>
@@ -35,9 +35,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FigureID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.FigureID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.FigureName)
         </td>
         <td>
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.FigureDOD)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CivID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.CivID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.CivName)
         </td>
         <td>

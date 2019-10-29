@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            List<ArticleBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.ArticlesGetAll(0, 100);
+                List<ArticleBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.ArticlesGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Articles/Details/5
@@ -48,32 +56,40 @@ namespace History_Web.Controllers
         public ActionResult Create()
         {
             {
-                ContextBLL dtr = new ContextBLL();
-                List<SelectListItem> useritems = new List<SelectListItem>();
-                List<SelectListItem> eventitems = new List<SelectListItem>();
-                ViewBag.UserItems = useritems;
-                ViewBag.EventItems = eventitems;
-                ArticleBLL newArticle = new ArticleBLL();
-                newArticle.ArticleText = null;
-                newArticle.UserID = 0;
-                newArticle.EventID = 0;
-                List<UserBLL> users = dtr.UsersGetAll(0, 100);
-                foreach (UserBLL user in users)
+                try
                 {
-                    SelectListItem useritem = new SelectListItem();
-                    useritem.Text = user.UserName;
-                    useritem.Value = user.UserID.ToString();
-                    useritems.Add(useritem);
+                    ContextBLL dtr = new ContextBLL();
+                    List<SelectListItem> useritems = new List<SelectListItem>();
+                    List<SelectListItem> eventitems = new List<SelectListItem>();
+                    ViewBag.UserItems = useritems;
+                    ViewBag.EventItems = eventitems;
+                    ArticleBLL newArticle = new ArticleBLL();
+                    newArticle.ArticleText = null;
+                    newArticle.UserID = 0;
+                    newArticle.EventID = 0;
+                    List<UserBLL> users = dtr.UsersGetAll(0, 100);
+                    foreach (UserBLL user in users)
+                    {
+                        SelectListItem useritem = new SelectListItem();
+                        useritem.Text = user.UserName;
+                        useritem.Value = user.UserID.ToString();
+                        useritems.Add(useritem);
+                    }
+                    List<EventBLL> events = dtr.EventsGetAll(0, 100);
+                    foreach (EventBLL @event in events)
+                    {
+                        SelectListItem eventitem = new SelectListItem();
+                        eventitem.Text = @event.EventName;
+                        eventitem.Value = @event.EventID.ToString();
+                        eventitems.Add(eventitem);
+                    }
+                    return View(newArticle);
                 }
-                List<EventBLL> events = dtr.EventsGetAll(0, 100);
-                foreach (EventBLL @event in events)
+                catch (Exception ex)
                 {
-                    SelectListItem eventitem = new SelectListItem();
-                    eventitem.Text = @event.EventName;
-                    eventitem.Value = @event.EventID.ToString();
-                    eventitems.Add(eventitem);
+                    Logger.Log(ex);
+                    return View("Error", ex);
                 }
-                return View(newArticle);
             }
         }
 
@@ -103,32 +119,40 @@ namespace History_Web.Controllers
         // GET: Articles/Edit/5
         public ActionResult Edit(int id)
         {
-            ArticleBLL article;
-            List<SelectListItem> useritems = new List<SelectListItem>();
-            List<SelectListItem> eventitems = new List<SelectListItem>();
-            ViewBag.UserItems = useritems;
-            ViewBag.EventItems = eventitems;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                article = dtr.ArticleFindByID(id);
-                List<UserBLL> users = dtr.UsersGetAll(0, 100);
-                foreach (UserBLL user in users)
+                ArticleBLL article;
+                List<SelectListItem> useritems = new List<SelectListItem>();
+                List<SelectListItem> eventitems = new List<SelectListItem>();
+                ViewBag.UserItems = useritems;
+                ViewBag.EventItems = eventitems;
+                using (ContextBLL dtr = new ContextBLL())
                 {
-                    SelectListItem useritem = new SelectListItem();
-                    useritem.Text = user.UserName;
-                    useritem.Value = user.UserID.ToString();
-                    useritems.Add(useritem);
+                    article = dtr.ArticleFindByID(id);
+                    List<UserBLL> users = dtr.UsersGetAll(0, 100);
+                    foreach (UserBLL user in users)
+                    {
+                        SelectListItem useritem = new SelectListItem();
+                        useritem.Text = user.UserName;
+                        useritem.Value = user.UserID.ToString();
+                        useritems.Add(useritem);
+                    }
+                    List<EventBLL> events = dtr.EventsGetAll(0, 100);
+                    foreach (EventBLL @event in events)
+                    {
+                        SelectListItem eventitem = new SelectListItem();
+                        eventitem.Text = @event.EventName;
+                        eventitem.Value = @event.EventID.ToString();
+                        eventitems.Add(eventitem);
+                    }
                 }
-                List<EventBLL> events = dtr.EventsGetAll(0, 100);
-                foreach (EventBLL @event in events)
-                {
-                    SelectListItem eventitem = new SelectListItem();
-                    eventitem.Text = @event.EventName;
-                    eventitem.Value = @event.EventID.ToString();
-                    eventitems.Add(eventitem);
-                }
+                return View(article);
             }
-            return View(article);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Articles/Edit/5
@@ -181,11 +205,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                dtr.ArticleDelete(id);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    dtr.ArticleDelete(id);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }

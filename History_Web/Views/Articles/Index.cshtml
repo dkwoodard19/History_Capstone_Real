@@ -1,34 +1,34 @@
 ﻿@model IEnumerable<BusinessLogicLayer.ArticleBLL>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Articles";
 }
 
-<h2>Index</h2>
+<h2>Articles</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ArticleID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ArticleName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ArticleText)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.EventID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EventName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.UserID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
@@ -38,24 +38,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ArticleID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.ArticleID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.ArticleName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ArticleText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EventID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.EventID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.EventName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.UserID)
+        @*</td>
+        <td>*@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>

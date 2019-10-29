@@ -90,7 +90,6 @@ namespace DataAccessLayer
             return proposedreturnValue;
         }
 
-
         public List<RoleDAL> RolesGetAll(int Skip, int Take)
         {
             List<RoleDAL> proposedReturnValue = new List<RoleDAL>();
@@ -380,7 +379,7 @@ namespace DataAccessLayer
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("UsersGetAll", _con))
+                using (SqlCommand command = new SqlCommand("UsersGetRelatedToRoleID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
@@ -560,7 +559,7 @@ namespace DataAccessLayer
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("FiguresGetAll", _con))
+                using (SqlCommand command = new SqlCommand("FiguresGetRelatedToCivID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
@@ -710,7 +709,7 @@ namespace DataAccessLayer
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("EventsGetAll", _con))
+                using (SqlCommand command = new SqlCommand("EventsGetRelatedToCivID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
@@ -734,13 +733,44 @@ namespace DataAccessLayer
             return proposedReturnValue;
         }
 
+        public List<EventDAL> EventsGetRelatedToName(int Skip, int Take, string Name)
+        {
+            List<EventDAL> proposedReturnValue = new List<EventDAL>();
+            try
+            {
+                EnsureConnected();
+                using (SqlCommand command = new SqlCommand("EventsGetRelatedToName", _con))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Skip", Skip);
+                    command.Parameters.AddWithValue("@Take", Take);
+                    command.Parameters.AddWithValue("@EventName", Name);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        EventMapper em = new EventMapper(reader);
+                        while (reader.Read())
+                        {
+                            EventDAL item = em.ToEvent(reader);
+                            proposedReturnValue.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) when (Log(ex))
+            {
+                // stays empty
+            }
+            return proposedReturnValue;
+        }
+
+
         public List<EventDAL> EventsGetRelatedToFigureID(int Skip, int Take, int FigureID)
         {
             List<EventDAL> proposedReturnValue = new List<EventDAL>();
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("EventsGetAll", _con))
+                using (SqlCommand command = new SqlCommand("EventsGetRelatedToFigureID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
@@ -1099,7 +1129,7 @@ namespace DataAccessLayer
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("ArticlesGetAll", _con))
+                using (SqlCommand command = new SqlCommand("ArticlesGetRelatedToUserID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
@@ -1129,12 +1159,42 @@ namespace DataAccessLayer
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("ArticlesGetAll", _con))
+                using (SqlCommand command = new SqlCommand("ArticlesGetRelatedToEventID", _con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Skip", Skip);
                     command.Parameters.AddWithValue("@Take", Take);
                     command.Parameters.AddWithValue("@EventID", EventID);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ArticleMapper fm = new ArticleMapper(reader);
+                        while (reader.Read())
+                        {
+                            ArticleDAL item = fm.ToArticle(reader);
+                            proposedReturnValue.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) when (Log(ex))
+            {
+                // stays empty
+            }
+            return proposedReturnValue;
+        }
+
+        public List<ArticleDAL> ArticlesGetRelatedToEventName(int Skip, int Take, string EventName)
+        {
+            List<ArticleDAL> proposedReturnValue = new List<ArticleDAL>();
+            try
+            {
+                EnsureConnected();
+                using (SqlCommand command = new SqlCommand("ArticlesGetRelatedToEventName", _con))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Skip", Skip);
+                    command.Parameters.AddWithValue("@Take", Take);
+                    command.Parameters.AddWithValue("@EventName", EventName);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         ArticleMapper fm = new ArticleMapper(reader);

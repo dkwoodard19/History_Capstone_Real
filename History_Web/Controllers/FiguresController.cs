@@ -13,12 +13,20 @@ namespace History_Web.Controllers
         // GET: Figures
         public ActionResult Index()
         {
-            List<FigureBLL> items = null;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                items = dtr.FiguresGetAll(0, 100);
+                List<FigureBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.FiguresGetAll(0, 100);
+                }
+                return View(items);
             }
-            return View(items);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // GET: Figures/Details/5
@@ -48,21 +56,29 @@ namespace History_Web.Controllers
         public ActionResult Create()
         {
             {
-                ContextBLL dtr = new ContextBLL();
-                List<SelectListItem> items = new List<SelectListItem>();
-                ViewBag.ListItems = items;
-                FigureBLL newFigure = new FigureBLL();
-                newFigure.FigureDOB = DateTime.Now.Date;
-                newFigure.FigureDOD = DateTime.Now.Date;
-                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
-                foreach (CivilizationBLL civ in civs)
+                try
                 {
-                    SelectListItem item = new SelectListItem();
-                    item.Text = civ.CivName;
-                    item.Value = civ.CivID.ToString();
-                    items.Add(item);
+                    ContextBLL dtr = new ContextBLL();
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    ViewBag.ListItems = items;
+                    FigureBLL newFigure = new FigureBLL();
+                    newFigure.FigureDOB = DateTime.Now.Date;
+                    newFigure.FigureDOD = DateTime.Now.Date;
+                    List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                    foreach (CivilizationBLL civ in civs)
+                    {
+                        SelectListItem item = new SelectListItem();
+                        item.Text = civ.CivName;
+                        item.Value = civ.CivID.ToString();
+                        items.Add(item);
+                    }
+                    return View(newFigure);
                 }
-                return View(newFigure);
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    return View("Error", ex);
+                }
             }
         }
 
@@ -92,22 +108,30 @@ namespace History_Web.Controllers
         // GET: Figures/Edit/5
         public ActionResult Edit(int id)
         {
-            FigureBLL figure;
-            List<SelectListItem> items = new List<SelectListItem>();
-            ViewBag.ListItems = items;
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                figure = dtr.FigureFindByID(id);
-                List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
-                foreach (CivilizationBLL civ in civs)
+                FigureBLL figure;
+                List<SelectListItem> items = new List<SelectListItem>();
+                ViewBag.ListItems = items;
+                using (ContextBLL dtr = new ContextBLL())
                 {
-                    SelectListItem item = new SelectListItem();
-                    item.Text = civ.CivName;
-                    item.Value = civ.CivID.ToString();
-                    items.Add(item);
+                    figure = dtr.FigureFindByID(id);
+                    List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                    foreach (CivilizationBLL civ in civs)
+                    {
+                        SelectListItem item = new SelectListItem();
+                        item.Text = civ.CivName;
+                        item.Value = civ.CivID.ToString();
+                        items.Add(item);
+                    }
                 }
+                return View(figure);
             }
-            return View(figure);
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
 
         // POST: Figures/Edit/5
@@ -160,11 +184,19 @@ namespace History_Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FigureBLL figureDelete)
         {
-            using (ContextBLL dtr = new ContextBLL())
+            try
             {
-                dtr.FigureDelete(id);
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    dtr.FigureDelete(id);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
         }
     }
 }
