@@ -13,7 +13,8 @@ namespace BusinessLogicLayer
         public string FigureName { get; set; }
         public DateTime FigureDOB { get; set; }
         public DateTime FigureDOD { get; set; }
-        [Display(Name = "Civilization")] public int CivID { get; set; }
+        [Display(Name = "Civilization")]
+        public int CivID { get; set; }
         public string CivName { get; set; }
 
         public FigureBLL(DataAccessLayer.FigureDAL figure)

@@ -29,6 +29,28 @@ namespace History_Web.Controllers
             }
         }
 
+        public ActionResult Statistics()
+        {
+            try
+            {
+                List<FigureBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.FiguresGetAll(0, 100);
+                    MeaningfulCalc mc = new MeaningfulCalc();
+                    var i = mc.FiguresToMeaningfulFigures(items);
+                    var s = mc.Calc(i);
+                    return View("Statistics",s);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
+        }
+
         // GET: Figures/Details/5
         public ActionResult Details(int id)
         {
