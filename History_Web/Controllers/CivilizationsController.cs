@@ -29,6 +29,29 @@ namespace History_Web.Controllers
             }
         }
 
+        public ActionResult Statistics()
+        {
+            try
+            {
+                List<CivilizationBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.CivilizationsGetAll(0, 100);
+                    CivCalc mc = new CivCalc();
+                    List<MeaningfulCiv> i = mc.CivsToMeaningfulCivs(items);
+                    CivStats s = mc.Calc(i);
+                    
+                    return View("Statistics", s);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
+        }
+
         // GET: Civilizations/Details/5
         public ActionResult Details(int id)
         {

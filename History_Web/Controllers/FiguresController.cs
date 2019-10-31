@@ -29,7 +29,7 @@ namespace History_Web.Controllers
             }
         }
 
-        public ActionResult Statistics()
+        public ActionResult Statistics()        //new action result for my meaningfulcalc
         {
             try
             {
@@ -38,8 +38,8 @@ namespace History_Web.Controllers
                 {
                     items = dtr.FiguresGetAll(0, 100);
                     MeaningfulCalc mc = new MeaningfulCalc();
-                    var i = mc.FiguresToMeaningfulFigures(items);
-                    var s = mc.Calc(i);
+                    List<MeaningfulFigure> i = mc.FiguresToMeaningfulFigures(items);
+                    List<FigureStats> s = mc.Calc(i);
                     return View("Statistics",s);
                 }
                 
@@ -80,21 +80,23 @@ namespace History_Web.Controllers
             {
                 try
                 {
-                    ContextBLL dtr = new ContextBLL();
-                    List<SelectListItem> items = new List<SelectListItem>();
-                    ViewBag.ListItems = items;
-                    FigureBLL newFigure = new FigureBLL();
-                    newFigure.FigureDOB = DateTime.Now.Date;
-                    newFigure.FigureDOD = DateTime.Now.Date;
-                    List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
-                    foreach (CivilizationBLL civ in civs)
+                    using (ContextBLL dtr = new ContextBLL())
                     {
-                        SelectListItem item = new SelectListItem();
-                        item.Text = civ.CivName;
-                        item.Value = civ.CivID.ToString();
-                        items.Add(item);
+                        List<SelectListItem> items = new List<SelectListItem>();
+                        FigureBLL newFigure = new FigureBLL();
+                        newFigure.FigureDOB = DateTime.Now.Date;
+                        newFigure.FigureDOD = DateTime.Now.Date;
+                        List<CivilizationBLL> civs = dtr.CivilizationsGetAll(0, 100);
+                        foreach (CivilizationBLL civ in civs)
+                        {
+                            SelectListItem item = new SelectListItem();
+                            item.Text = civ.CivName;
+                            item.Value = civ.CivID.ToString();
+                            items.Add(item);
+                        }
+                        ViewData["ListItems"] = items;
+                        return View(newFigure);
                     }
-                    return View(newFigure);
                 }
                 catch (Exception ex)
                 {

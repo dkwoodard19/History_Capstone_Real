@@ -52,7 +52,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error", ex);
+                return View("Error");
             }
         }
 
@@ -122,7 +122,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error", ex);
+                return View("Error");
             }
         }
 
@@ -163,7 +163,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error", ex);
+                return View("Error");
             }
         }
     }

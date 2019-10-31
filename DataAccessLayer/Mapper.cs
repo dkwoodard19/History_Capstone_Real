@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class Mapper
+    public class Mapper     //parent of all other mappers
     {
         public void Assert(bool condition, string message)
         {

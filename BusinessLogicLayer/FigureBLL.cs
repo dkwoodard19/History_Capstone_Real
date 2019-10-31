@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer
 {
-    public class FigureBLL
+    public class FigureBLL :  CivilizationBLL
     {
         public int FigureID { get; set; }
         public string FigureName { get; set; }

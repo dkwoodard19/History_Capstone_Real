@@ -39,7 +39,7 @@ namespace History_Web
 
         protected void Application_Error(object sender, EventArgs logs)
         {
-            var ex = Server.GetLastError();
+            Exception ex = Server.GetLastError();
             if (ex is ThreadAbortException)
                 return;
             Logger.Log(ex);

@@ -15,7 +15,7 @@
 <table class="table">
     <tr>
         @*<th>
-            @Html.DisplayNameFor(model => model.FigureID)
+            @Html.DisplayNameFor(model => model.FigureID)           not displaying IDs in this view
         </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FigureName)
@@ -39,7 +39,7 @@
     <tr>
         <td>
             @Html.HiddenFor(modelItem => item.FigureID)
-        @*</td>
+        @*</td>                                                      hides and removes column in the list of figures
         <td>*@
             @Html.DisplayFor(modelItem => item.FigureName)
         </td>

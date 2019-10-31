@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class CivilizationMapper : Mapper
+    public class CivilizationMapper : Mapper        //parent child relationship
     {
         int OffsetToCivID;      // 0
         int OffsetToCivName;    // 1

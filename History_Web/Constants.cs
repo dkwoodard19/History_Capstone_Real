@@ -7,13 +7,13 @@ namespace History_Web
 {
     public class Constants
     {
-        public const int DefaultRoleID = 14;
+        public const int DefaultRoleID = 14;        //default user; admin will be able to change
         public const string DefaultRoleName = "Student";
-        public const int PowerRoleID = 15;
+        public const int PowerRoleID = 15;          //this is a user that's allowed to create and publish an article
         public const string PowerRoleName = "Historian";
-        public const int AdminID = 16;
+        public const int AdminID = 16;              // god-like power
         public const string Admin = "Administrator";
-        public const int AnonID = 17;
+        public const int AnonID = 17;               // able to view home, about, and contact page
         public const string AnonName = "Unknown";
 
         public const int MinPasswordLength = 6;
