@@ -23,8 +23,8 @@ namespace BusinessLogicLayer
         {
             get     //only a 'get' because it wont be set at all; its used to calculate what i actually want
             {
-                int DOB = int.Parse(this.FigureDOB.ToString("yyyyMMdd"));       //found on stackoverflow to calculate age
-                int DOD = int.Parse(this.FigureDOD.ToString("yyyyMMdd"));       
+                int DOB = int.Parse(FigureDOB.ToString("yyyyMMdd"));       //found on stackoverflow to calculate age
+                int DOD = int.Parse(FigureDOD.ToString("yyyyMMdd"));       
                 return (DOD - DOB) / 10000;
             }
         }

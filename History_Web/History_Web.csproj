@@ -186,8 +186,6 @@
     <Content Include="Views\Figures\Index.cshtml" />
     <Content Include="Views\Figures\Create.cshtml" />
     <Content Include="Views\Figures\Delete.cshtml" />
-    <Content Include="Views\Edit.cshtml" />
-    <Content Include="Views\Details.cshtml" />
     <Content Include="Views\Figures\Details.cshtml" />
     <Content Include="Views\Figures\Edit.cshtml" />
     <Content Include="Views\Shared\ItemNotFound.cshtml" />
@@ -196,7 +194,6 @@
     <Content Include="Views\Events\Delete.cshtml" />
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
-    <Content Include="Views\Create.cshtml" />
     <Content Include="Views\Civilizations\Index.cshtml" />
     <Content Include="Views\Civilizations\Delete.cshtml" />
     <Content Include="Views\Civilizations\Details.cshtml" />
