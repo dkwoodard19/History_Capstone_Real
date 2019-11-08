@@ -8,9 +8,11 @@ using Logger_Project;
 
 namespace History_Web.Controllers
 {
+    [Models.Filter.MustBeInRole(Roles = Constants.Student)]
     public class UsersController : Controller
     {
         // GET: Users
+        
         public ActionResult Index()
         {
             try
@@ -47,12 +49,13 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");
+                return View("Error", ex);
             }
             return View(user);
         }
 
-        // GET: Users/Create
+        //// GET: Users/Create
+        //[Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Create()
         {
             {
@@ -102,14 +105,15 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Users/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Edit(int id)
         {
             try
@@ -140,6 +144,7 @@ namespace History_Web.Controllers
 
         // POST: Users/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Edit(UserBLL userUpdate)
         {
             try
@@ -162,6 +167,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Users/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id)
         {
             UserBLL deleteUser;
@@ -186,6 +192,7 @@ namespace History_Web.Controllers
 
         // POST: Users/Delete/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id, UserBLL userdelete)
         {
             try

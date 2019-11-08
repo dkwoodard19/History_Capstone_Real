@@ -9,6 +9,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @Html.ActionLink("Stats by Figure", "FigureStats")
+</p>
+<p>
+    @Html.ActionLink("Stats by Civilization", "CivStats")
+</p>
 <table class="table">
     <tr>
         @*<th>
@@ -59,9 +65,17 @@
             @Html.DisplayFor(modelItem => item.CivName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id = item.EventID }) |
-            @Html.ActionLink("Details", "Details", new {  id = item.EventID  }) |
-            @Html.ActionLink("Delete", "Delete", new {  id = item.EventID  })
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.EventID })
+            }
+            @Html.Raw("|")
+            @Html.ActionLink("Details", "Details", new { id = item.EventID })
+            @Html.Raw("|")
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.EventID })
+            }
         </td>
     </tr>
 }

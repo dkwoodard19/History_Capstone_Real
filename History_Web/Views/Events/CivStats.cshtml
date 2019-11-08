@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BusinessLogicLayer.CivEventStats>
+
+@{
+    ViewBag.Title = "CivStats";
+}
+
+<h2>CivStats</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CivID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CivName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventsPerCiv)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CivID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CivName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventsPerCiv)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
+
+</table>

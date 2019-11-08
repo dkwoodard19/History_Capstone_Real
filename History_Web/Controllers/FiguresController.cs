@@ -8,6 +8,7 @@ using Logger_Project;
 
 namespace History_Web.Controllers
 {
+    [Models.Filter.MustBeInRole(Roles = Constants.Student)]
     public class FiguresController : Controller
     {
         // GET: Figures
@@ -66,7 +67,7 @@ namespace History_Web.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Log(ex);
                 return View("Error", ex);
@@ -75,6 +76,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Figures/Create
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create()
         {
             {
@@ -108,6 +110,7 @@ namespace History_Web.Controllers
 
         // POST: Figures/Create
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create(FigureBLL figurecreate)
         {
             try
@@ -122,14 +125,15 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Figures/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(int id)
         {
             try
@@ -160,6 +164,7 @@ namespace History_Web.Controllers
 
         // POST: Figures/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(FigureBLL figureUpdate)
         {
             try
@@ -182,6 +187,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Figures/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id)
         {
             FigureBLL deleteFigure;
@@ -206,6 +212,7 @@ namespace History_Web.Controllers
 
         // POST: Figures/Delete/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id, FigureBLL figureDelete)
         {
             try

@@ -24,7 +24,7 @@ namespace Logger_Project
                 throw new Exception("Something went wrong while getting the DefaultConnectionString for Logger");
             }
         }
-        public static void Log(Exception ex)
+        public static bool Log(Exception ex)
         {
             try
             {
@@ -50,6 +50,7 @@ namespace Logger_Project
                 System.IO.File.AppendAllText(p, "This is the exception that was attempting to be written\r\n");
                 System.IO.File.AppendAllText(p, Ex.ToString());
             }
+        return false;
         }
     }
     

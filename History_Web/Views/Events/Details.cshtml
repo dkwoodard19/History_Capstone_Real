@@ -10,14 +10,16 @@
     <h4>Event Details</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EventID)
-        </dt>
+        @if (User.IsInRole(Constants.Developer))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.EventID)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EventID)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.EventID)
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.EventName)
         </dt>
@@ -33,15 +35,16 @@
         <dd>
             @Html.DisplayFor(model => model.EventDate)
         </dd>
-
+        @if (User.IsInRole(Constants.Developer))
+        {
         <dt>
-            @Html.DisplayNameFor(model => model.FigureID)
+           @Html.DisplayNameFor(model => model.FigureID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FigureID)
+           @Html.DisplayFor(model => model.FigureID)
         </dd>
-
+        }
         <dt>
             @Html.DisplayNameFor(model => model.FigureName)
         </dt>
@@ -49,7 +52,8 @@
         <dd>
             @Html.DisplayFor(model => model.FigureName)
         </dd>
-
+        @if (User.IsInRole(Constants.Developer))
+        {
         <dt>
             @Html.DisplayNameFor(model => model.CivID)
         </dt>
@@ -57,7 +61,7 @@
         <dd>
             @Html.DisplayFor(model => model.CivID)
         </dd>
-
+        }
         <dt>
             @Html.DisplayNameFor(model => model.CivName)
         </dt>
@@ -69,6 +73,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) |
+    @if (User.IsInRole(Constants.Developer) | (User.IsInRole(Constants.Admin)) | (User.IsInRole(Constants.Historian)))
+    {
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID })
+    }
+    @Html.Raw("|")
     @Html.ActionLink("Back to List", "Index")
 </p>

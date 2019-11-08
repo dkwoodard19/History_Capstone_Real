@@ -20,41 +20,88 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-
-                    @if (User.IsInRole(Constants.DefaultRoleName))
+                    @if (!User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
-                        <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
-                        <li>@Html.ActionLink("Events", "Index", "Events")</li>
-                        <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
-                        <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Register", "Register", "Home")</li>
                     }
-                    @if (User.Identity.IsAuthenticated)
+
+                    @if (User.IsInRole("Student"))
                     {
-                        <li>@Html.ActionLink("Welcome" + User.Identity.Name + ":" + User.Identity.AuthenticationType, "Index", "Home")</li>
-                        <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
-                        <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
-                        <li>@Html.ActionLink("Events", "Index", "Events")</li>
-                        <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
-                        <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                            <li>@Html.ActionLink("Welcome " + User.Identity.Name + " Student", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                            <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
+                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
                         if (User.Identity.AuthenticationType.StartsWith("ClearText"))
                         {
-                            <li>@Html.ActionLink("HASH Password", "Hash", "Home")</li>
+                                <li>@Html.ActionLink("HASH Password", "Hash", "Home")</li>
 
                         }
                     }
-                    else
-                    {
-                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
-                    <li>@Html.ActionLink("Register", "Register", "Home")</li>
-                    }
+                        @if (User.IsInRole("Historian"))
+                        {
+                            <li>@Html.ActionLink("Welcome " + User.Identity.Name +" Historian", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                            <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
+                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("OneView", "Create", "OneView")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                            if (User.Identity.AuthenticationType.StartsWith("ClearText"))
+                            {
+                                <li>@Html.ActionLink("HASH Password", "Hash", "Home")</li>
+
+                            }
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Welcome " + User.Identity.Name + " Admin", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                            <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
+                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("OneView", "Create", "OneView")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                            if (User.Identity.AuthenticationType.StartsWith("ClearText"))
+                            {
+                                <li>@Html.ActionLink("HASH Password", "Hash", "Home")</li>
+
+                            }
+                        }
+                        @if (User.IsInRole("Developer"))
+                        {
+                            <li>@Html.ActionLink("Welcome " + User.Identity.Name + " Developer", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                            <li>@Html.ActionLink("Civilizations", "Index", "Civilizations")</li>
+                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Figures", "Index", "Figures")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("OneView", "Create", "OneView")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                            if (User.Identity.AuthenticationType.StartsWith("ClearText"))
+                            {
+                                <li>@Html.ActionLink("HASH Password", "Hash", "Home")</li>
+
+                            }
+
+                            else
+                            {
+
+                            }
+                        }
+
                 </ul>
             </div>
         </div>
@@ -63,7 +110,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Doomed to Repeat</p>
         </footer>
     </div>
 

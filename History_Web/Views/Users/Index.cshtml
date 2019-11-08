@@ -59,9 +59,17 @@
             @Html.DisplayFor(modelItem => item.RoleName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+            @if (User.IsInRole(Constants.Developer))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserID })
+            }
+            @Html.Raw("|")
+            @Html.ActionLink("Details", "Details", new { id = item.UserID })
+            @Html.Raw("|")
+            @if (User.IsInRole(Constants.Developer) | (User.IsInRole(Constants.Ad)))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+            }
         </td>
     </tr>
 }

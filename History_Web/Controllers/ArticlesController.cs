@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLogicLayer;
 using Logger_Project;
+using System.ComponentModel.DataAnnotations;
 
 namespace History_Web.Controllers
 {
+    [Models.Filter.MustBeInRole(Roles = Constants.Student)]
     public class ArticlesController : Controller
     {
         // GET: Articles
+
         public ActionResult Index()
         {
             try
@@ -53,6 +56,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Articles/Create
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create()
         {
             {
@@ -95,6 +99,7 @@ namespace History_Web.Controllers
 
         // POST: Articles/Create
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create(ArticleBLL articlecreate)
         {
             try
@@ -109,14 +114,15 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Articles/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(int id)
         {
             try
@@ -157,6 +163,7 @@ namespace History_Web.Controllers
 
         // POST: Articles/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(ArticleBLL articleUpdate)
         {
             try
@@ -179,6 +186,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Articles/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id)
         {
             ArticleBLL deleteArticle;
@@ -203,7 +211,8 @@ namespace History_Web.Controllers
 
         // POST: Articles/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
+        public ActionResult Delete(int id, ArticleBLL articledelete)
         {
             try
             {

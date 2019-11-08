@@ -8,6 +8,7 @@ using Logger_Project;
 
 namespace History_Web.Controllers
 {
+    [Models.Filter.MustBeInRole(Roles = Constants.Student)]
     public class CivilizationsController : Controller
     {
         // GET: Civilizations
@@ -75,7 +76,8 @@ namespace History_Web.Controllers
             return View(civ);
         }
 
-        // GET: Civilizations/Create
+        //GET: Civilizations/Create
+       [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create()
         {
             try
@@ -96,6 +98,7 @@ namespace History_Web.Controllers
 
         // POST: Civilizations/Create
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create(CivilizationBLL civCreate)
         {
             try
@@ -110,14 +113,15 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Civilizations/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(int id)
         {
             try
@@ -138,6 +142,7 @@ namespace History_Web.Controllers
 
         // POST: Civilizations/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(int id, CivilizationBLL civUpdate)
         {
             try
@@ -160,18 +165,28 @@ namespace History_Web.Controllers
         }
 
         // GET: Civilizations/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id)
         {
+            int civid = id;
             CivilizationBLL deleteCiv;
             try
             {
                 using (ContextBLL dtr = new ContextBLL())
                 {
-                    deleteCiv = dtr.CivilizationFindByID(id);
+                    deleteCiv = dtr.CivilizationFindByID(civid);
                     if (null == deleteCiv)
                     {
                         return View("Item not found");
                     }
+                    List<FigureBLL> items;
+                    items = dtr.FiguresGetRelatedToCivID(0, 100, civid);
+                    ViewBag.items = items;
+                    List<EventBLL> events;
+                    events = dtr.EventsGetRelatedToCivID(0, 100, civid);
+                    ViewBag.events = events;
+                    return View(deleteCiv);
+                    
                 }
             }
             catch (Exception ex)
@@ -179,11 +194,12 @@ namespace History_Web.Controllers
                 Logger.Log(ex);
                 return View("Error", ex);
             }
-            return View(deleteCiv);
+           
         }
 
         // POST: Civilizations/Delete/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id, CivilizationBLL civDelete)
         {
             try

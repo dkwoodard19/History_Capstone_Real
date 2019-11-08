@@ -18,7 +18,7 @@ namespace DataAccessLayer
             _con.Dispose();
         }
 
-        void EnsureConnected()
+        void EnsureConnected()          //switch is branching stuff
         {
             switch (_con.State)
             {
@@ -200,13 +200,13 @@ namespace DataAccessLayer
         #endregion
 
         #region User_SP
-        public UserDAL UserFindByID(int UserID)
+        public UserDAL UserFindByID(int UserID)     //method signature returnvalue parameters/inputs
         {
             UserDAL proposedReturnValue = null;
             try
             {
                 EnsureConnected();
-                using (SqlCommand command = new SqlCommand("UserFindByID", _con))
+                using (SqlCommand command = new SqlCommand("UserFindByID", _con))       //command implements IDisposable
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@UserID", UserID);
@@ -224,7 +224,7 @@ namespace DataAccessLayer
                             throw new Exception($"Multiple Users found for ID {UserID}");
                         }
                     }
-                }
+                }                                                                       //command disposed as it leaves using block
             }
             catch (Exception ex) when (Log(ex))
             {

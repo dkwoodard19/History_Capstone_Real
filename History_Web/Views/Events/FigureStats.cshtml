@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BusinessLogicLayer.FigEventStats>
+
+@{
+    ViewBag.Title = "FigureStats";
+}
+
+<h2>FigureStats</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FigureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventsPerFigure)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FigureName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventsPerFigure)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FigureID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FigureID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FigureID })
+        </td>*@
+    </tr>
+}
+
+</table>

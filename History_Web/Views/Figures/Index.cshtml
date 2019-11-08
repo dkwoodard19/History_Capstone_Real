@@ -56,9 +56,17 @@
             @Html.DisplayFor(modelItem => item.CivName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.FigureID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.FigureID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.FigureID })
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.FigureID })
+            }
+            @Html.Raw("|")
+            @Html.ActionLink("Details", "Details", new { id = item.FigureID })
+            @Html.Raw("|")
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.FigureID })
+            }
         </td>
     </tr>
 }

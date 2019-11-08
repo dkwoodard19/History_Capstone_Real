@@ -1,31 +1,68 @@
-﻿@{
+﻿@model History_Web.LoginModel
+
+@{
     ViewBag.Title = "Home Page";
 }
+@*@if (!User.Identity.IsAuthenticated)
+{
+    <div class="col-md-offset-10">
+        <div class="modal-dialog text-center">
+            <div class="col-lg-5 main-section">
+                <div class="devin">
+                    <div class="modal-content">
+                        <div class="col-lg-12 user-img">
+                            <img src="" />
+                        </div>
+                        <form class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter UserName" />
+                                <input type="password" class="form-control" placeholder="Enter Password" />
+                            </div>
+                            <button type="submit" class="btn"><a href="~/Home/Login">Login</a></button>
+                        </form>
+                        <div class="col-12 register">
+                            <a href="~/Home/Register">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@if (User.Identity.IsAuthenticated)
+{
+<div class="container">
+    <div class="jumbotron">
+        <img src="~/Content/Backgrounds/resizedSoldiersBarbedWire85.jpg" />
+        @*<img src="~/Content/Backgrounds/NewSoldiersBarbedWire.jpg" />*@
+        @*<img src="~/Content/Backgrounds/NewNewSoldiersBarbedWire.jpg" />*@
+        @*<img src="~/Content/Backgrounds/NewSoldiersBarbedWire.jpg" />*@
+        @*<img src="~/Content/Backgrounds/SoldiersBarbedWire.jpg" />*@
+        <h1>Welcome to Doomed to Repeat!</h1>
+        <p class="lead">Learn about the major Events, Figures, and Civilizations in Articles written by our Historians.</p>
+            <p><a href="~/Articles/Index" class="btn btn-primary btn-lg">Articles &raquo;</a></p>
+    </div>
 </div>
-
+}
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>Civilizations</h2>
+        <p class=" = " text-primary">Comprehensive list of Civilizations involved in the War to End all Wars</p>
+        <p><a class="btn btn-info" href="~/Civilizations/Index">Civilizations</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>Figures That Shaped WW1</h2>
+        <p>View a list of some of the most important Heads of State and Generals who would bring into the world a new type of warfare.</p>
+        <p><a class="btn btn-info" href="~/Figures/Index">Figures</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>Memorable Events</h2>
+        <p>View a list of WW1's most important Events</p>
+        <p><a class="btn btn-info" href="~/Events/Index">Events</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>Daily Tidbit</h2>
+        <p>On September 15th 1916, the first tanks; then known as "Land Battleships" were used by the British at the Battle of Flers-Courcelette.</p>
     </div>
 </div>

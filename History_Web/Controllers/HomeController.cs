@@ -52,7 +52,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");
+                return View("Error", ex);
             }
         }
 
@@ -61,6 +61,10 @@ namespace History_Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(login);
+                }
                 // logic to authenticate user with information in login goes here
                 using (ContextBLL dtr = new ContextBLL())
                 {
@@ -91,7 +95,7 @@ namespace History_Web.Controllers
                     if (validuser)
                     {
                         Session["AUTHUserName"] = user.UserName;
-                        Session["AUTHRoles"] = user.RoleID;
+                        Session["AUTHRoles"] = user.RoleName;
                         Session["AUTHTYPE"] = validationType;
                         return Redirect(login.ReturnURL);
                     }
@@ -122,7 +126,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");
+                return View("Error", ex);
             }
         }
 
@@ -131,6 +135,10 @@ namespace History_Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(register);
+                }
                 using (ContextBLL dtr = new ContextBLL())
                 {
                     UserBLL email = dtr.UserFindByEmail(register.Email);
@@ -150,8 +158,7 @@ namespace History_Web.Controllers
                     user.UserName = register.UserName;
                     user.Salt = System.Web.Helpers.Crypto.GenerateSalt(Constants.SaltSize);
                     user.Hash = System.Web.Helpers.Crypto.HashPassword(register.Password + user.Salt);
-                    user.RoleID = Constants.DefaultRoleID;
-
+                    user.RoleID = Constants.StudentID;
                     dtr.UserCreate(user);
                     Session["AUTHUserName"] = user.UserName;
                     Session["AUTHEmail"] = user.Email;
@@ -163,7 +170,7 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");
+                return View("Error", ex);
             }
         }
     }

@@ -10,6 +10,7 @@ namespace History_Web.Controllers
 {
     public class RolesController : Controller
     {
+        [Models.Filter.MustBeInRole(Roles = Constants.Student)]
         // GET: Roles
         public ActionResult Index()
         {
@@ -30,6 +31,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Roles/Details/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Details(int id)
         {
             RoleBLL role;
@@ -47,12 +49,13 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");
+                return View("Error", ex);
             }
             return View(role);
         }
 
         // GET: Roles/Create
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Create()
         {
             try
@@ -69,6 +72,7 @@ namespace History_Web.Controllers
         }
 
         // POST: Roles/Create
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         [HttpPost]
         public ActionResult Create(RoleBLL rolecreate)
         {
@@ -84,14 +88,15 @@ namespace History_Web.Controllers
                 }
                     return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error");
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Roles/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Edit(int id)
         {
             try
@@ -114,6 +119,7 @@ namespace History_Web.Controllers
 
         // POST: Roles/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Edit(BusinessLogicLayer.RoleBLL roleUpdate)
         {
             try
@@ -128,15 +134,16 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
-            
+
         }
 
         // GET: Roles/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         public ActionResult Delete(int id)
         {
             RoleBLL deleteRole;
@@ -154,12 +161,13 @@ namespace History_Web.Controllers
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                return View("Error");                    
+                return View("Error", ex);
             }
             return View(deleteRole);
         }
 
         // POST: Roles/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Developer)]
         [HttpPost]
         public ActionResult Delete(int id, RoleBLL roledelete)
         {

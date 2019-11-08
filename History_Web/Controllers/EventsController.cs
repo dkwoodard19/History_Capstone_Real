@@ -8,6 +8,7 @@ using Logger_Project;
 
 namespace History_Web.Controllers
 {
+    [Models.Filter.MustBeInRole(Roles = Constants.Student)]
     public class EventsController : Controller
     {
         // GET: Events
@@ -21,6 +22,51 @@ namespace History_Web.Controllers
                     items = dtr.EventsGetAll(0, 100);
                 }
                 return View(items);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
+        }
+
+        public ActionResult FigureStats()        //new action result for my meaningfulcalc
+        {
+            try
+            {
+                List<EventBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.EventsGetAll(0, 100);
+                    EventFigCalc ec = new EventFigCalc();
+                    //List<MeaningfulEvents> i = ec.EventCivsToMeaningfulEventCivs(items);
+                    //List<MeaningfulEvents> s = ec.EventsFiguresToMeaningfulEventFigures(items);
+                    List<FigEventStats> figevents = ec.FigCalc(items);
+                    return View("FigureStats", figevents);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return View("Error", ex);
+            }
+        }
+        public ActionResult CivStats()
+        {
+            try
+            {
+                List<EventBLL> items = null;
+                using (ContextBLL dtr = new ContextBLL())
+                {
+                    items = dtr.EventsGetAll(0, 100);
+                    EventCivCalc ec = new EventCivCalc();
+                    //List<MeaningfulEvents> i = ec.EventCivsToMeaningfulEventCivs(items);
+                    //List<MeaningfulEvents> s = ec.EventsFiguresToMeaningfulEventFigures(items);
+                    List<CivEventStats> civevents = ec.CivCalc(items);
+                    return View("CivStats", civevents);
+                }
+
             }
             catch (Exception ex)
             {
@@ -53,6 +99,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Events/Create
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create()
         {
             try
@@ -95,6 +142,7 @@ namespace History_Web.Controllers
 
         // POST: Events/Create
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Create(EventBLL eventCreate)
         {
             try
@@ -109,14 +157,15 @@ namespace History_Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Logger.Log(Ex);
-                return View("Error", Ex);
+                Logger.Log(ex);
+                return View("Error", ex);
             }
         }
 
         // GET: Events/Edit/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(int id)
         {
             try
@@ -157,6 +206,7 @@ namespace History_Web.Controllers
 
         // POST: Events/Edit/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Historian)]
         public ActionResult Edit(EventBLL eventUpdate)
         {
             try
@@ -179,6 +229,7 @@ namespace History_Web.Controllers
         }
 
         // GET: Events/Delete/5
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id)
         {
             EventBLL deleteEvent;
@@ -203,6 +254,7 @@ namespace History_Web.Controllers
 
         // POST: Events/Delete/5
         [HttpPost]
+        [Models.Filter.MustBeInRole(Roles = Constants.Admin)]
         public ActionResult Delete(int id, EventBLL eventDelete)
         {
             try

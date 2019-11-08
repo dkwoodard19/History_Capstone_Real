@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ArticleName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ArticleText)
-        </th>
+        </th>*@
         @*<th>
             @Html.DisplayNameFor(model => model.EventID)
         </th>*@
@@ -43,9 +43,9 @@
         <td>*@
             @Html.DisplayFor(modelItem => item.ArticleName)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ArticleText)
-        </td>
+        </td>*@
         <td>
             @Html.HiddenFor(modelItem => item.EventID)
         @*</td>
@@ -59,9 +59,17 @@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.ArticleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArticleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID })
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ArticleID })
+            }
+            @Html.Raw("|")
+            @Html.ActionLink("Details", "Details", new { id = item.ArticleID }) 
+            @Html.Raw("|")
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
+            {
+            @Html.ActionLink("Delete", "Delete", new { id = item.ArticleID })
+            }
         </td>
     </tr>
 }

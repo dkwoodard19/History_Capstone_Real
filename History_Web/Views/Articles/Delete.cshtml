@@ -11,10 +11,12 @@
     <h4>Delete Article?</h4>
     <hr />
     <dl class="dl-horizontal">
+        @if (User.IsInRole(Constants.Developer))
+        {
         <dt>
             @Html.DisplayNameFor(model => model.ArticleID)
         </dt>
-
+        }
         <dd>
             @Html.DisplayFor(model => model.ArticleID)
         </dd>

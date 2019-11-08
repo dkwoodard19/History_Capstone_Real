@@ -44,9 +44,17 @@
             @Html.DisplayFor(modelItem => item.CivEnd)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CivID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.CivID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CivID })
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.CivID })
+            }
+            @Html.Raw("|")
+            @Html.ActionLink("Details", "Details", new { id = item.CivID }) 
+            @Html.Raw("|")
+            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.CivID })
+            }
         </td>
     </tr>
 }

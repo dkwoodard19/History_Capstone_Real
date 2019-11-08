@@ -10,6 +10,8 @@
     <h4>FigureBLL</h4>
     <hr />
     <dl class="dl-horizontal">
+        @if (User.IsInRole(Constants.Developer))
+        {
         <dt>
             @Html.DisplayNameFor(model => model.FigureID)
         </dt>
@@ -17,7 +19,7 @@
         <dd>
             @Html.DisplayFor(model => model.FigureID)
         </dd>
-
+        }
         <dt>
             @Html.DisplayNameFor(model => model.FigureName)
         </dt>
@@ -41,7 +43,8 @@
         <dd>
             @Html.DisplayFor(model => model.FigureDOD)
         </dd>
-
+        @if (User.IsInRole(Constants.Developer))
+        {
         <dt>
             @Html.DisplayNameFor(model => model.CivID)
         </dt>
@@ -49,7 +52,7 @@
         <dd>
             @Html.DisplayFor(model => model.CivID)
         </dd>
-
+        }
         <dt>
             @Html.DisplayNameFor(model => model.CivName)
         </dt>
@@ -61,6 +64,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FigureID }) |
+    @if (User.IsInRole(Constants.Developer) | (User.IsInRole(Constants.Admin)) | (User.IsInRole(Constants.Historian)))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.FigureID })
+    }
+    @Html.Raw("|")
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -121,6 +121,86 @@ namespace BusinessLogicLayer.Tests
             Assert.AreNotEqual(ExpectedAvg, ActualAvg);
         }
         #endregion
+
+        #region EventCiv
+        List<EventCivCalc> SampleEventsCivs(int count)
+        {
+            List<EventCivCalc> proposedReturnValue = new List<EventCivCalc>();
+            for (int i = 0; i < count; i++)
+            {
+                EventBLL f = new EventBLL();
+                f.FigureID = i;
+                f.CivID = i;
+                f.EventID = i;
+                proposedReturnValue.Add(new EventCivCalc());
+            }
+            return proposedReturnValue;
+        }
+        [TestMethod()]
+        public void Should_BeNonZero_WhenEventsNonNull_InEventCivCalc()
+        {
+            //arrange create instance of the thing that contains the 'Age' property
+            //FigureBLL fs = new FigureBLL();
+            //MeaningfulFigure mf = new MeaningfulFigure(fs);
+            List<EventCivCalc> civs = SampleEventsCivs(3); //figures from sample figures = 3
+            int ExpectedTotal = 0;
+            //act 
+            int ActualTotal = civs.Count;
+            //assert
+            Assert.AreNotEqual(ExpectedTotal, ActualTotal);
+        }
+        [TestMethod()]
+        public void Should_ReturnNull_WhenEventsNull_InEventCivCalc()
+        {
+            //arrange create instance of the thing that contains the 'Age' property
+            //FigureBLL fs = new FigureBLL();
+            //MeaningfulFigure mf = new MeaningfulFigure(fs);
+            List<EventCivCalc> civs = SampleEventsCivs(0); //figures from sample figures = 3
+            int ExpectedTotal = 0;
+            //act 
+            int ActualTotal = civs.Count;
+            //assert
+            Assert.AreEqual(ExpectedTotal, ActualTotal);
+        }
+        #endregion
+
+        #region EventFig
+        List<EventFigCalc> SampleEventsFigs(int count)
+        {
+            List<EventFigCalc> proposedReturnValue = new List<EventFigCalc>();
+            for (int i = 0; i < count; i++)
+            {
+                EventBLL f = new EventBLL();
+                f.FigureID = i;
+                f.CivID = i;
+                f.EventID = i;
+                proposedReturnValue.Add(new EventFigCalc());
+            }
+            return proposedReturnValue;
+        }
+        [TestMethod()]
+        public void Should_BeNonZero_WhenEventsNonNull_InEventFigCalc()
+        {
+            //arrange create
+            List<EventFigCalc> figs = SampleEventsFigs(3); 
+            int ExpectedTotal = 0;
+            //act 
+            int ActualTotal = figs.Count;
+            //assert
+            Assert.AreNotEqual(ExpectedTotal, ActualTotal);
+        }
+        [TestMethod()]
+        public void Should_ReturnNull_WhenEventsNull_InEventFigCalc()
+        {
+            //arrange
+            List<EventFigCalc> figs = SampleEventsFigs(0);
+            int ExpectedTotal = 0;
+            //act 
+            int ActualTotal = figs.Count;
+            //assert
+            Assert.AreEqual(ExpectedTotal, ActualTotal);
+        }
+        #endregion
     }
 
 }

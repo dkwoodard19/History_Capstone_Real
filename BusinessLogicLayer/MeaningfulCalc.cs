@@ -77,6 +77,7 @@ namespace BusinessLogicLayer
         }
     }
     #endregion
+    #region CivStats
     public class CivStats
     {
         public double AverageAge { get; set; }
@@ -123,4 +124,53 @@ namespace BusinessLogicLayer
                 return cs;
         }
     }
+    #endregion
+    public class CivEventStats
+    {
+        public int CivID { get; set; }
+        public string CivName { get; set; }
+        public double EventsPerCiv { get; set; }
+    }
+    public class EventCivCalc
+    {
+        public List<CivEventStats> CivCalc(List<EventBLL> @event)       //uses the new list created in the above method to do the actual calculations and 'sets' data into the FigureStats class
+        {
+            List<CivEventStats> proposedReturnValue = new List<CivEventStats>();
+            IOrderedEnumerable<EventBLL> civsorted = @event.OrderBy(f => f.CivID).ThenBy(f => f.EventName);
+            var civgroup = civsorted.GroupBy(f => new { f.CivID });        //needsCivName?
+            foreach (var f in civgroup)
+            {
+                CivEventStats es = new CivEventStats();
+                es.EventsPerCiv = f.Count();
+                es.CivID = f.ToList()[0].CivID;
+                es.CivName = f.ToList()[0].CivName;
+                proposedReturnValue.Add(es);
+            }
+            return proposedReturnValue;
+        }
+    }
+    public class FigEventStats
+    {
+        public int FigureID { get; set; }
+        public string FigureName { get; set; }
+        public double EventsPerFigure { get; set; }
+    }
+    public class EventFigCalc
+    {
+        public List<FigEventStats> FigCalc(List<EventBLL> @event)
+        {
+            List<FigEventStats> proposedReturnValue = new List<FigEventStats>();
+            IOrderedEnumerable<EventBLL> figsorted = @event.OrderBy(f => f.FigureID).ThenBy(f => f.EventName);
+            var figgroup = figsorted.GroupBy(f => new { f.FigureID});
+            foreach (var f in figgroup)
+            {
+                FigEventStats es = new FigEventStats();
+                es.EventsPerFigure = f.Count();
+                es.FigureID = f.ToList()[0].FigureID;
+                es.FigureName = f.ToList()[0].FigureName;
+                proposedReturnValue.Add(es);
+            }
+            return proposedReturnValue;
+        }
+    }            
 }
