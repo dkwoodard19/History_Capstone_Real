@@ -7,71 +7,78 @@
 <h2>Articles</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if(User.IsInRole(Constants.Dev) | User.IsInRole(Constants.Ad) | User.IsInRole(Constants.Hist))
+     {
+       @Html.ActionLink("Create New", "Create");
+     }
 </p>
-<table class="table">
-    <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.ArticleID)
-        </th>*@
+
+
+
+    <table class="table">
+<tr>
+@*<th>
+        @Html.DisplayNameFor(model => model.ArticleID)
+    </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ArticleName)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.ArticleText)
-        </th>*@
-        @*<th>
-            @Html.DisplayNameFor(model => model.EventID)
-        </th>*@
+@*<th>
+        @Html.DisplayNameFor(model => model.ArticleText)
+    </th>*@
+@*<th>
+        @Html.DisplayNameFor(model => model.EventID)
+    </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EventName)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>*@
+@*<th>
+        @Html.DisplayNameFor(model => model.UserID)
+    </th>*@
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach(var item in Model)
+        {
     <tr>
         <td>
             @Html.HiddenFor(modelItem => item.ArticleID)
-        @*</td>
-        <td>*@
-            @Html.DisplayFor(modelItem => item.ArticleName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ArticleText)
-        </td>*@
-        <td>
-            @Html.HiddenFor(modelItem => item.EventID)
-        @*</td>
-        <td>*@
-            @Html.DisplayFor(modelItem => item.EventName)
-        </td>
-        <td>
-            @Html.HiddenFor(modelItem => item.UserID)
-        @*</td>
-        <td>*@
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.ArticleID })
-            }
-            @Html.Raw("|")
-            @Html.ActionLink("Details", "Details", new { id = item.ArticleID }) 
-            @Html.Raw("|")
-            @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
-            {
+@*</td>
+    <td>*@
+@Html.DisplayFor(modelItem => item.ArticleName)
+</td>
+@*<td>
+        @Html.DisplayFor(modelItem => item.ArticleText)
+    </td>*@
+<td>
+    @Html.HiddenFor(modelItem => item.EventID)
+@*</td>
+    <td>*@
+@Html.DisplayFor(modelItem => item.EventName)
+</td>
+<td>
+@Html.HiddenFor(modelItem => item.UserID)
+@*</td>
+    <td>*@
+    @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.ArticleID })
+        }
+        @Html.Raw("|")
+        @Html.ActionLink("Details", "Details", new { id = item.ArticleID })
+        @Html.Raw("|")
+        @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)))
+        {
             @Html.ActionLink("Delete", "Delete", new { id = item.ArticleID })
-            }
-        </td>
+        }
+    </td>
     </tr>
-}
+    }
 
-</table>
+    </table>

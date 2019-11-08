@@ -64,7 +64,7 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole(Constants.Developer) | (User.IsInRole(Constants.Admin)) | (User.IsInRole(Constants.Historian)))
+    @if (User.IsInRole(Constants.Dev) | (User.IsInRole(Constants.Ad)) | (User.IsInRole(Constants.Hist)))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.FigureID })
     }

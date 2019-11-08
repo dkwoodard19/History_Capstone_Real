@@ -31,7 +31,7 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole(Constants.Developer))
+    @if (User.IsInRole(Constants.Dev))
     {
     @Html.ActionLink("Edit", "Edit", new { id = Model.RoleID }) 
     }

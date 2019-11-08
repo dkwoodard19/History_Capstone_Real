@@ -10,7 +10,7 @@
     <h4>User Details</h4>
     <hr />
     <dl class="dl-horizontal">
-        @if (User.IsInRole(Constants.Developer))
+        @if (User.IsInRole(Constants.Dev))
         {
         <dt>
             @Html.DisplayNameFor(model => model.UserID)
@@ -35,7 +35,7 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-        @if (User.IsInRole(Constants.Developer))
+        @if (User.IsInRole(Constants.Dev))
         {
         <dt>
             @Html.DisplayNameFor(model => model.Hash)
@@ -53,7 +53,7 @@
             @Html.DisplayFor(model => model.Salt)
         </dd>
         }
-        @if (User.IsInRole(Constants.Developer))
+        @if (User.IsInRole(Constants.Dev))
         {
         <dt>
             @Html.DisplayNameFor(model => model.RoleID)
@@ -74,7 +74,7 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole(Constants.Developer))
+    @if (User.IsInRole(Constants.Dev))
     {
     @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) 
     }
